@@ -5,6 +5,8 @@ Author: Eric Koenigs, HCI Heidelberg
 Creates masks from the output of the LayerAnnotation tool.
 
 Invoke with -h or --help for usage.
+
+This program is hereby released into to the Public Domain.
 '''
 
 import argparse
@@ -27,7 +29,6 @@ def main(args):
     folder = getelem(seq, "folder").text
     framenum = int(getelem(seq, "NumFrames").text)
     files = [f.text for f in getelem(seq, "fileList")]
-
     imagesize = Image.open(folder + files[0]).size
 
     masks = createmasks(imagesize, framenum)
@@ -50,12 +51,16 @@ def main(args):
 # =============================== [ Functions ] ===============================
 
 def getelem(tree, elem, n = 0):
-    '''Fetch the n-th element from the tree. Defaults to the first.'''
+    '''Fetch the n-th element from the tree. Defaults to the first.
+    
+    Returns:
+        the element if found, else None. 
+        Also returns None if n is out of range.
+    '''
     e = [t for t in tree.iter(elem)]
-    if len(e) == 0 or n >= len(e):
+    if n >= len(e):
         return None
     else:
-        #print(e[n].text)
         return e[n]
 
 def createmasks(size, n = 1):
