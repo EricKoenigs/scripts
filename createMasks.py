@@ -35,7 +35,7 @@ def main(args):
 
     objects = list(seq.iter("object"))
 
-    # draw all polugons onto the masks
+    # draw all polygons onto the masks
     for obj in objects:
         frames = list(obj.iter("frame"))
         for frame in frames:
